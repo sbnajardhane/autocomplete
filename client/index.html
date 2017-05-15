@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>AutoComplete - sample</title>
+</head>
+<body>
+	<div class="container">
+	  <div class="page-header">
+	    <h1>Autocomplete - sample</h1> 
+	  </div>
+	  <div class="input-container">
+	  	<input type="text" class="form-control" id="data">
+	  </div>
+	</div>
+</body>
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+<script type="text/javascript">
+	$(function (){
+		$('#data').keyup(function() {
+			console.log("In keyup function");
+			$.ajax( { url :'http://127.0.0.1:3000/autocomplete', 
+					  method: 'GET',
+					  crossDomain : true,
+					  success:  function(data) {
+					  		console.log("succesfully");
+					  },
+					 failure : function(error) {
+					 	console.log(error);
+					 }
+					}
+				 );
+		})
+	})
+</script>
+
+</html>
