@@ -1,0 +1,14 @@
+{
+  "name": "autoacomplete",
+  "version": "1.0.0",
+  "description": "Autocomplete web app",
+  "main": "index.js",
+  "scripts": {
+    "test": "node index.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.15.2"
+  }
+}
