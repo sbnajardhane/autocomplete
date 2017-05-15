@@ -1,0 +1,43 @@
+{
+    "scripts": {
+        "lint": "eslint ./ --cache --ignore-pattern .gitignore",
+        "precommit-msg": "echo 'Pre-commit checks...' ",
+        "babel": "babel --presets es2015 js/main.js -o build/main.bundle.js",
+        "start": "http-server",
+        "webpack": "webpack"
+    },
+    "pre-commit": [
+        "precommit-msg",
+        "lint"
+    ],
+    "pre-push": [
+        "lint"
+    ],
+    "devDependencies": {
+        "babel-eslint": "^7.2.3",
+        "babel-loader": "^7.0.0",
+        "eslint-loader": "^1.7.1",
+        "pre-commit": "^1.2.2",
+        "pre-push": "^0.1.1",
+        "webpack": "^2.5.1",
+        "webpack-dev-server": "^2.4.5"
+    },
+    "name": "autocomplete",
+    "description": "Install sublime 3",
+    "version": "1.0.0",
+    "main": "comments.js",
+    "author": "shubham",
+    "license": "ISC",
+    "dependencies": {
+        "pre-commit": "^1.2.2",
+        "pre-push": "^0.1.1"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/sbnajardhane/autocomplete.git"
+    },
+    "bugs": {
+        "url": "https://github.com/sbnajardhane/autocomplete/issues"
+    },
+    "homepage": "https://github.com/sbnajardhane/autocomplete#readme"
+}
