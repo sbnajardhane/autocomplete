@@ -3,7 +3,7 @@ var gulp = require("gulp"),
     nodemon = require("./index");
 
 gulp.task("lint", function() {
-    gulp.src("./server/server.js")
+    gulp.src(["**/**/*.js", "!node_modules/**"])
         .pipe(eslint())
         .pipe(eslint.format())
         // Brick on failure to be super strict
@@ -18,7 +18,7 @@ gulp.task("afterstart", function() {
 gulp.task("server", ["lint"], function() {
     var stream = nodemon({
         nodemon: require("nodemon"),
-        script: "./server/server.js",
+        script: "./server.js",
         verbose: true,
         env: {
             "NODE_ENV": "development"

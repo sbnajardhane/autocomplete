@@ -1,22 +1,17 @@
 {
     "scripts": {
-        "lint": "eslint ./ --cache --ignore-pattern node_modules/ **/node_modules/",
-        "precommit-msg": "echo 'Pre-commit checks...' ",
-        "test": "gulp test"
+        "server": "node_modules/.bin/gulp server"
     },
-    "pre-commit": [
-        "precommit-msg",
-        "lint"
-    ],
-    "pre-push": [
-        "lint"
-    ],
     "devDependencies": {
+        "coffee-script": "^1.7.1",
         "eslint": "^3.19.0",
         "eslint-loader": "^1.7.1",
-        "eslint-plugin-import": "^2.2.0",
-        "pre-commit": "^1.2.2",
-        "pre-push": "^0.1.1"
+        "gulp": "^3.9.1",
+        "gulp-eslint": "^3.0.1",
+        "gulp-mocha": "^0.2.0",
+        "is-running": "^1.0.3",
+        "should": "^4.0.0",
+        "nodemon": "^1.10.2"
     },
     "name": "autocomplete",
     "description": "Install sublime 3",
@@ -25,8 +20,10 @@
     "author": "shubham",
     "license": "ISC",
     "dependencies": {
-        "pre-commit": "^1.2.2",
-        "pre-push": "^0.1.1"
+        "colors": "^1.0.3",
+        "event-stream": "^3.2.1",
+        "gulp": "^3.9.1",
+        "nodemon": "^1.10.2"
     },
     "repository": {
         "type": "git",
