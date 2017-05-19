@@ -1,14 +1,39 @@
 {
-  "name": "autoacomplete",
-  "version": "1.0.0",
-  "description": "Autocomplete web app",
-  "main": "index.js",
-  "scripts": {
-    "test": "node index.js"
-  },
-  "author": "",
-  "license": "ISC",
-  "dependencies": {
-    "express": "^4.15.2"
-  }
+    "scripts": {
+        "server": "node_modules/.bin/gulp server"
+    },
+    "devDependencies": {
+        "coffee-script": "^1.7.1",
+        "eslint": "^3.19.0",
+        "eslint-loader": "^1.7.1",
+        "gulp": "^3.9.1",
+        "gulp-eslint": "^3.0.1",
+        "gulp-mocha": "^0.2.0",
+        "is-running": "^1.0.3",
+        "should": "^4.0.0",
+        "nodemon": "^1.10.2"
+    },
+    "name": "autocomplete",
+    "description": "Install sublime 3",
+    "version": "1.0.0",
+    "main": "comments.js",
+    "author": "shubham",
+    "license": "ISC",
+    "dependencies": {
+        "colors": "^1.0.3",
+        "event-stream": "^3.2.1",
+        "gulp": "^3.9.1",
+        "nodemon": "^1.10.2"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/sbnajardhane/autocomplete.git"
+    },
+    "bugs": {
+        "url": "https://github.com/sbnajardhane/autocomplete/issues"
+    },
+    "directories": {
+        "test": "test"
+    },
+    "homepage": "https://github.com/sbnajardhane/autocomplete#readme"
 }

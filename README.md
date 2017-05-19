@@ -16,7 +16,7 @@ Install eslint sublime plugin:
 	```SublimeLinter-contrib-eslint```
 
 
-Install HTML/CSS/JS prettify plugin: to indent the HTML/CSS/JS code
+Install HTML-CSS-JS prettify plugin: to indent the HTML/CSS/JS code
 
 	open set plugin option for HTML/CSS/JS prettify,
 	{

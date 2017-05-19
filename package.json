@@ -1,6 +1,6 @@
 {
     "scripts": {
-        "lint": "eslint ./ --cache --ignore-pattern .gitignore",
+        "lint": "eslint ./ --cache --ignore-pattern node_modules/ **/node_modules/",
         "precommit-msg": "echo 'Pre-commit checks...' ",
         "test": "gulp test"
     },
@@ -12,13 +12,9 @@
         "lint"
     ],
     "devDependencies": {
-        "coffee-script": "^1.7.1",
-        "gulp-eslint": "^3.0.1",
-        "gulp-mocha": "^0.2.0",
-        "is-running": "^1.0.3",
-        "should": "^4.0.0",
         "eslint": "^3.19.0",
         "eslint-loader": "^1.7.1",
+        "eslint-plugin-import": "^2.2.0",
         "pre-commit": "^1.2.2",
         "pre-push": "^0.1.1"
     },
