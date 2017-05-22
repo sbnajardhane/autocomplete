@@ -23,22 +23,22 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
 <script type="text/javascript">
-	$(function (){
-		$('#data').keyup(function() {
-			console.log("In keyup function");
-			$.ajax( { url :'http://127.0.0.1:3000/autocomplete', 
-					  method: 'GET',
-					  crossDomain : true,
-					  success:  function(data) {
-					  		console.log("succesfully");
-					  },
-					 failure : function(error) {
-					 	console.log(error);
-					 }
-					}
-				 );
-		})
-	})
+$(function() {
+    $('#data').keyup(function() {
+        console.log("In keyup function");
+        $.ajax({
+            url: 'http://127.0.0.1:3000/autocomplete',
+            method: 'GET',
+            crossDomain: true,
+            success: function(data) {
+                console.log("succesfully");
+            },
+            failure: function(error) {
+                console.log(error);
+            }
+        });
+    })
+})
 </script>
 
 </html>
