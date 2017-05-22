@@ -1,7 +1,8 @@
 {
     "scripts": {
-        "lint": "eslint ./ --cache --ignore-pattern .gitignore",
-        "precommit-msg": "echo 'Pre-commit checks...' "
+        "lint": "eslint ./ --cache --ignore-pattern node_modules/ **/node_modules/",
+        "precommit-msg": "echo 'Pre-commit checks...' ",
+        "test": "gulp test"
     },
     "pre-commit": [
         "precommit-msg",
@@ -11,7 +12,9 @@
         "lint"
     ],
     "devDependencies": {
-        "eslint": "^2.12.0",
+        "eslint": "^3.19.0",
+        "eslint-loader": "^1.7.1",
+        "eslint-plugin-import": "^2.2.0",
         "pre-commit": "^1.2.2",
         "pre-push": "^0.1.1"
     },
@@ -22,16 +25,22 @@
     "author": "shubham",
     "license": "ISC",
     "dependencies": {
-        "eslint": "^2.12.0",
+        "colors": "^1.0.3",
+        "event-stream": "^3.2.1",
+        "gulp": "^3.9.1",
+        "nodemon": "^1.10.2",
         "pre-commit": "^1.2.2",
         "pre-push": "^0.1.1"
     },
     "repository": {
         "type": "git",
-        "url": "git+https://github.com/sbnajardhane/autocomplete.git"
+        "url": "https://github.com/sbnajardhane/autocomplete.git"
     },
     "bugs": {
         "url": "https://github.com/sbnajardhane/autocomplete/issues"
+    },
+    "directories": {
+        "test": "test"
     },
     "homepage": "https://github.com/sbnajardhane/autocomplete#readme"
 }

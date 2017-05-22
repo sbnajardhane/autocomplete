@@ -16,13 +16,24 @@ Install eslint sublime plugin:
 	```SublimeLinter-contrib-eslint```
 
 
-Install HTML/CSS/JS prettify plugin: to indent the HTML/CSS/JS code
+Install HTML-CSS-JS prettify plugin: to indent the HTML/CSS/JS code
 
 	open set plugin option for HTML/CSS/JS prettify,
 	{
 		"format_on_save": true,
 	}
 
-Install this package locally:
-	```npm install pre-commit --save-dev```
-	```npm install pre-push --save-dev```
+
+To set the node server to detect the change in files and to throw errors on save
+
+Install gulp node module flobally ```npm install gulp -g```
+
+Install nodemon node module flobally ```npm install nodemon -g```
+
+``` npm install ```
+
+below node modules will be installed locally.
+
+	For Git pre-commit hooks : ```npm install pre-commit --save-dev```
+	For Git pre-commit hooks : ```npm install pre-push --save-dev```
+	To check for lint errors on save :npm install gulp-eslint --save-dev```
