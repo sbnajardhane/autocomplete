@@ -4,6 +4,7 @@ This module is for creation of directory
 
 // require all the modules here
 const fs = require("fs");
+const dictionaryPath = "./big.txt";
 
 var dictionary = module.exports = function(options) {
     this.dictionary = {};
@@ -118,14 +119,12 @@ dictionary.prototype = {
                 console.log("Dictionary: " + wordCount + " words, " + Object.keys(this.dictionary).length + " entries, edit distance=" + this.options.editDistanceMax + " in " + tDiff + " ms");
                 console.log("memory:", process.memoryUsage());
             }
-            console.log(this.dictionary);
+            // console.log(this.dictionary);
             let data = {
                 dictionary: this.dictionary,
                 wordList: this.wordList
             };
             data = JSON.stringify(data);
-
-            
             fs.writeFile(this.path, data, (err) => {
                 if (err) {
                     reject(err);
@@ -180,7 +179,12 @@ dictionary.prototype = {
 create();
 
 function create() {
-    var dir = new dictionary();
+    var options = {
+        verbose: 2,
+        editDistanceMax: 2,
+        debug: true
+    };
+    var dir = new dictionary(options);
     console.log("dictionary function", dir);
-    dir.createDictionary(fs.readFileSync("./dict.txt").toString(), "");
+    dir.createDictionary(fs.readFileSync(dictionaryPath).toString(), "");
 }
