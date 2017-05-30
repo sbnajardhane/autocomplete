@@ -1,6 +1,7 @@
 /*
 Module to lookup for query in the dictionary
 */
+const fs = require("fs");
 
 var SuggestItem = (function() {
     function SuggestItem() {
@@ -24,10 +25,10 @@ var DictionaryItem = (function() {
 }());
 
 const supportedLanguages = {
-    "eng": "english", 
+    "eng": "english",
     "deu": "deutsch"
 };
-const directoryPath = "./dictionaries/";
+const directoryPath = "./correct-spell/dictionaries/";
 
 
 var lookup = module.exports = function(options) {
@@ -51,22 +52,22 @@ lookup.prototype = {
     getDictionary: function(candidate, language) {
         let filename, dict;
         filename = directoryPath + language + ".json";
+        // filename = "./dictionaries/english.json"
         try {
-            dict = require(filename);
-            console.log("found dict");
-        } catch(e) {
-            console.log("dictionary of language ", language, " not found..!");
-            throw { err: "dictionary of language not found..!"};
+            dict = fs.readFileSync(filename, "utf-8");
+            dict = JSON.parse(dict);
+            this.wordList = dict.wordList;
+            this.dictionary = dict.dictionary;
+            this.maxLength = dict.maxLength;
+        } catch (e) {
+            console.log("dictionary of language ", language, " not found..!", e);
+            throw { err: "dictionary of language not found..!" };
         }
-        this.wordList = dict.wordList;
-        this.dictionary = dict.dictionary;
-        this.maxLength = dict.maxLength;
         return true;
     },
 
     checkWord: function(input, language, editDistanceMax) {
         if (input.length - editDistanceMax > this.maxLength) {
-            console.log("here", this.maxLength);
             return [new SuggestItem()];
         }
         var candidates = [];
@@ -217,9 +218,9 @@ lookup.prototype = {
     },
 
     correct: function(input, language) {
-        return new Promise( (resolve, reject) => {
+        return new Promise((resolve, reject) => {
             try {
-                if(!supportedLanguages.hasOwnProperty(language)) {
+                if (!supportedLanguages.hasOwnProperty(language)) {
                     throw { err: "Language not supported" };
                 }
                 language = supportedLanguages[language];
@@ -232,8 +233,9 @@ lookup.prototype = {
                     language: language,
                     suggestions: suggestions
                 };
+                console.log("memory:", process.memoryUsage());
                 resolve(response);
-            } catch(err) {
+            } catch (err) {
                 reject(err);
             }
         });

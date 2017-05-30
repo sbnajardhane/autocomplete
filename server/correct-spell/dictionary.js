@@ -8,8 +8,8 @@ var dictionaryPath;
 var language;
 var directory = "dictionaries";
 
-if(process.argv.length === 3) {
-    if(process.argv[2].match(/--file-path/)) {
+if (process.argv.length === 3) {
+    if (process.argv[2].match(/--file-path/)) {
         let split = process.argv[2].split("=");
         dictionaryPath = split[1];
         language = dictionaryPath.match(/[^\/]*$/m)[0];
@@ -51,12 +51,12 @@ var DictionaryItem = (function() {
 
 dictionary.prototype = {
 
-    createDirectory: function (dirName) {
-        if ( !fs.existsSync(dirName) ) {
+    createDirectory: function(dirName) {
+        if (!fs.existsSync(dirName)) {
             fs.mkdirSync(dirName, (err) => {
                 if (err) throw err;
             });
-        }      
+        }
     },
 
     parseWords: function(text) {
@@ -120,7 +120,7 @@ dictionary.prototype = {
     },
 
     createDictionary: function(corpus, language) {
-        return new Promise( (fullfill, reject) => {
+        return new Promise((fullfill, reject) => {
             var wordCount = 0;
             if (this.options.debug) {
                 console.log("Creating dictionary...");
@@ -145,10 +145,10 @@ dictionary.prototype = {
                 dictionary: this.dictionary,
                 wordList: this.wordList
             };
-            data = JSON.stringify(data);
+            data = JSON.stringify(data, null, 4);
             let path = directory + "/" + language + ".json";
             this.createDirectory(directory);
-            fs.writeFile(path, data, (err) => {
+            fs.writeFile(path, data, "utf-8", (err) => {
                 if (err) {
                     reject(err);
                 } else {
@@ -209,5 +209,5 @@ function create() {
     };
     var dir = new dictionary(options);
     console.log("dictionary function", dir);
-    dir.createDictionary(fs.readFileSync(dictionaryPath).toString(), language);
+    dir.createDictionary(fs.readFileSync(dictionaryPath, "utf-8").toString(), language);
 }

@@ -18,7 +18,7 @@ gulp.task("afterstart", function() {
 gulp.task("server", ["lint"], function() {
     var stream = nodemon({
         nodemon: require("nodemon"),
-        script: "./server/server.js",
+        script: "./server/correct-spell/main.js",
         verbose: true,
         env: {
             "NODE_ENV": "development"
