@@ -2,8 +2,6 @@
 Module to lookup for query in the dictionary
 */
 
-const dictionary = require("./dictionary.json");
-
 var SuggestItem = (function() {
     function SuggestItem() {
         this.term = "";
@@ -25,12 +23,17 @@ var DictionaryItem = (function() {
     return DictionaryItem;
 }());
 
+const supportedLanguages = {
+    "eng": "english", 
+    "deu": "deutsch"
+};
+const directoryPath = "./dictionaries/";
+
 
 var lookup = module.exports = function(options) {
     this.dictionary = {};
     this.wordList = [];
-    this.wordList = dictionary.wordList;
-    this.maxLength = dictionary.maxLength;
+    this.maxLength = 0;
     this.options = {
         verbose: 2,
         editDistanceMax: 1,
@@ -46,14 +49,24 @@ var lookup = module.exports = function(options) {
 lookup.prototype = {
 
     getDictionary: function(candidate, language) {
-        console.log("candidate", candidate);
-        console.log("language", language);
-        this.dictionary = dictionary.dictionary;
-        return;
+        let filename, dict;
+        filename = directoryPath + language + ".json";
+        try {
+            dict = require(filename);
+            console.log("found dict");
+        } catch(e) {
+            console.log("dictionary of language ", language, " not found..!");
+            throw { err: "dictionary of language not found..!"};
+        }
+        this.wordList = dict.wordList;
+        this.dictionary = dict.dictionary;
+        this.maxLength = dict.maxLength;
+        return true;
     },
 
     checkWord: function(input, language, editDistanceMax) {
         if (input.length - editDistanceMax > this.maxLength) {
+            console.log("here", this.maxLength);
             return [new SuggestItem()];
         }
         var candidates = [];
@@ -74,7 +87,10 @@ lookup.prototype = {
                 break;
             }
             var dictKey = language + candidate;
-            this.getDictionary(candidate, language);
+            // Will be needed when we make more than one dictionary for a language            
+            // if(!this.getDictionary(candidate, language)) {
+            //     throw error;
+            // }
             var valueo = dictKey in this.dictionary ? this.dictionary[dictKey] : false;
             if (valueo !== false) {
                 var value = new DictionaryItem();
@@ -201,13 +217,25 @@ lookup.prototype = {
     },
 
     correct: function(input, language) {
-        var suggestions = [];
-        //check in dictionary for existence and frequency; sort by ascending edit distance, then by descending word frequency
-        suggestions = this.checkWord(input, language, this.options.editDistanceMax);
-        return Promise.resolve({
-            query: input,
-            language: language,
-            suggestions: suggestions
+        return new Promise( (resolve, reject) => {
+            try {
+                if(!supportedLanguages.hasOwnProperty(language)) {
+                    throw { err: "Language not supported" };
+                }
+                language = supportedLanguages[language];
+                this.getDictionary(input, language);
+                var suggestions = [];
+                //check in dictionary for existence and frequency; sort by ascending edit distance, then by descending word frequency
+                suggestions = this.checkWord(input, language, this.options.editDistanceMax);
+                var response = {
+                    query: input,
+                    language: language,
+                    suggestions: suggestions
+                };
+                resolve(response);
+            } catch(err) {
+                reject(err);
+            }
         });
     },
 

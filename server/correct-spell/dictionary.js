@@ -4,12 +4,25 @@ This module is for creation of directory
 
 // require all the modules here
 const fs = require("fs");
-const dictionaryPath = "./big.txt";
+var dictionaryPath;
+var language;
+var directory = "dictionaries";
+
+if(process.argv.length === 3) {
+    if(process.argv[2].match(/--file-path/)) {
+        let split = process.argv[2].split("=");
+        dictionaryPath = split[1];
+        language = dictionaryPath.match(/[^\/]*$/m)[0];
+        language = language.match(/^[^\.]*/m)[0];
+    }
+    console.log("dictionaryPath ", dictionaryPath);
+    console.log("language ", language);
+    // process.exit();
+}
 
 var dictionary = module.exports = function(options) {
     this.dictionary = {};
     this.wordList = [];
-    this.path = "dictionary.json";
     this.maxlength = 0;
     this.options = {
         verbose: 2,
@@ -37,6 +50,14 @@ var DictionaryItem = (function() {
 }());
 
 dictionary.prototype = {
+
+    createDirectory: function (dirName) {
+        if ( !fs.existsSync(dirName) ) {
+            fs.mkdirSync(dirName, (err) => {
+                if (err) throw err;
+            });
+        }      
+    },
 
     parseWords: function(text) {
         return text.toLowerCase().match(/([\w\d_](-[\w\d_])?('(t|d|s|m|ll|re|ve))?)+/g);
@@ -125,7 +146,9 @@ dictionary.prototype = {
                 wordList: this.wordList
             };
             data = JSON.stringify(data);
-            fs.writeFile(this.path, data, (err) => {
+            let path = directory + "/" + language + ".json";
+            this.createDirectory(directory);
+            fs.writeFile(path, data, (err) => {
                 if (err) {
                     reject(err);
                 } else {
@@ -181,10 +204,10 @@ create();
 function create() {
     var options = {
         verbose: 2,
-        editDistanceMax: 2,
+        editDistanceMax: 1,
         debug: true
     };
     var dir = new dictionary(options);
     console.log("dictionary function", dir);
-    dir.createDictionary(fs.readFileSync(dictionaryPath).toString(), "");
+    dir.createDictionary(fs.readFileSync(dictionaryPath).toString(), language);
 }
